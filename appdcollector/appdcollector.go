@@ -45,7 +45,7 @@ func CreateBusinessTransaction(e ExtractedData) {
 
 	fmt.Print(".")
 	milliseconds := 250
-	time.Sleep(time.Duration(milliseconds) * time.Millisecond)	
+	time.Sleep(time.Duration(milliseconds) * time.Millisecond)
 
 	appd.BT_override_start_time_ms(bt, uint64(e.StartTime))
 	//s1 := rand.NewSource(time.Now().UnixNano())
@@ -54,7 +54,7 @@ func CreateBusinessTransaction(e ExtractedData) {
 
 	if appd.BT_is_snapshotting(bt) != 0 {
 		fmt.Println("adding data")
-		//appd.BT_set_url(bt, r.URL.String())
+		appd.BT_set_url(bt, r.URL.String())
 		//appd.BT_add_user_data(bt, "postcode", code)
 	}
 
@@ -70,6 +70,17 @@ func attachExitCall() {
 	//fmt.Println("Exit handle", exit)
 
 	//appd.Exitcall_set_details(exit, query)
+
+	exit := appd.Exitcall_begin(bt, backendName)
+	fmt.Println("Exit handle", exit)
+
+	appd.Exitcall_set_details(exit, query)
+	fmt.Println("Looking for ", code)
+	// report error
+	appd.BT_add_error(bt, appd.ERROR_LEVEL_ERROR, "no match", 1)
+
+	appd.Exitcall_end(exit)
+
 
 }
 
@@ -97,7 +108,7 @@ func processTrace() {
 //    	btCount := 0
 //	maxBtCount := 200
 //	fmt.Print("Doing something")
-//	for btCount < maxBtCount {	
+//	for btCount < maxBtCount {
 //    		createBusinessTransaction()
-//	} 
+//	}
 //}
