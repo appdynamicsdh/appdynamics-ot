@@ -172,6 +172,14 @@ func BT_end(bt uint64) {
     C.appd_bt_end(C.bt_int_to_handle(C.uintptr_t(bt)))
 }
 
+func BT_override_start_time_ms(bt uint64, start uint64) {
+	C.appd_bt_override_start_time_ms(C.bt_int_to_handle(C.uintptr_t(bt)), C.long(start))
+}
+
+func BT_override_time_ms(bt uint64, timeMS uint64) {
+	C.appd_bt_override_time_ms(C.bt_int_to_handle(C.uintptr_t(bt)), C.long(timeMS))
+}
+
 func BT_set_url(bt uint64, name string) {
     name_c := C.CString(name)
     defer C.free(unsafe.Pointer(name_c))
@@ -354,4 +362,3 @@ func WrapHandleFunc(name string, pattern string, handler func(http.ResponseWrite
         h.ServeHTTP(w, r)
     }
 }
-
