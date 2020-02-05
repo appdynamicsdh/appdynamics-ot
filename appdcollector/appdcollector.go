@@ -71,15 +71,15 @@ func attachExitCall() {
 
 	//appd.Exitcall_set_details(exit, query)
 
-	exit := appd.Exitcall_begin(bt, backendName)
-	fmt.Println("Exit handle", exit)
+	//exit := appd.Exitcall_begin(bt, backendName)
+	//fmt.Println("Exit handle", exit)
 
-	appd.Exitcall_set_details(exit, query)
-	fmt.Println("Looking for ", code)
+	//appd.Exitcall_set_details(exit, query)
+	//fmt.Println("Looking for ", code)
 	// report error
-	appd.BT_add_error(bt, appd.ERROR_LEVEL_ERROR, "no match", 1)
+	//appd.BT_add_error(bt, appd.ERROR_LEVEL_ERROR, "no match", 1)
 
-	appd.Exitcall_end(exit)
+	//appd.Exitcall_end(exit)
 
 
 }
