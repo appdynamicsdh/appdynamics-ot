@@ -30,12 +30,15 @@ type Message []struct {
 	} `json:"binaryAnnotations"`
 }
 
-type extractedData struct {
-	StartTime int64    `json:"StartTime"`
-	Duration  int64    `json:"Duration"`
-	BTName    string `json:"BTName"`
-	TierName  string `json:"TierName"`
-	NodeName  string `json:"NodeName"`
+type extractedData []struct {
+	StartTime int64    `json:"timestamp"`
+	Duration  int64    `json:"duration"`
+	BTName    string   `json:"value"`
+	TierName  string   `json:"serviceName"`
+    NodeName  string   `json:"ipv4"`
+    TraceID   string   `json:"traceId"`
+    ParentID  string   `json:"parentId,omitempty"`
+    SpanID    string   `json:"id"`
 }
 
 
@@ -61,39 +64,74 @@ func ingestSpan(rw http.ResponseWriter, req *http.Request) {
     extractDataFromSpan(traces)
 }
 
-/*Now that we have the JSON data in our custom type struct, we can extract out the needed data to generate BT naming, Response time and
- Tier and Node names*/
+/*Now that we have the JSON data in our custom type struct, we can extract out the needed data to generate BT Snapshot information showing the overall transaction
+and related traces*/
 func extractDataFromSpan(traces *Message){
+
+    var resultSet = make(extractedData, len(*traces))
+    var startTime int64
+    var endTime int64
+    var counter int = 0
+    var index int
+
     for _, trace := range *traces {
+
+        /*Index manipulation to make sure Parent is first index (0) slot*/
+        index = counter + 1
+        counter += 1
+
+        startTime = 0
+        endTime = 0
+        
         if(trace.ParentID == ""){
-            /*Found the Parent Trace*/
-            var startTime int64
-            var endTime int64
-            var BTName string
-            var TierName string
-            var NodeName string
-
-            for _, annotation := range trace.Annotations {
-                if(annotation.Value =="ss"){
-                    startTime = annotation.Timestamp
-                    TierName = annotation.Endpoint.ServiceName
-                    NodeName = annotation.Endpoint.Ipv4 
-                }
-                if(annotation.Value =="sr"){
-                    endTime = annotation.Timestamp
-                }  
-            }
-            for _, binaryAnn := range trace.BinaryAnnotations {
-                if(binaryAnn.Key =="http.url"){
-                    BTName = binaryAnn.Value
-                }
-            }
-            /*Calling BT compliers funcytion*/
-
-            output := extractedData{StartTime: startTime, Duration: startTime-endTime, BTName: BTName, TierName: TierName, NodeName: NodeName}
-            log.Printf(output.BTName)
+            /*Set the top of the []extractedData for the Parent Information*/
+            index = 0
         }
+        resultSet[index].TraceID = trace.TraceID
+        resultSet[index].ParentID = trace.ParentID
+        resultSet[index].SpanID = trace.ID
+
+        for _, annotation := range trace.Annotations {
+            if(annotation.Value =="ss"){
+                startTime = annotation.Timestamp
+                resultSet[index].StartTime = annotation.Timestamp
+                resultSet[index].TierName = annotation.Endpoint.ServiceName
+                resultSet[index].NodeName = annotation.Endpoint.Ipv4 
+            }
+            if(annotation.Value =="sr"){
+                endTime = annotation.Timestamp
+            }  
+        }
+        for _, binaryAnn := range trace.BinaryAnnotations {
+            if(binaryAnn.Key =="http.url"){
+                resultSet[index].BTName = binaryAnn.Value
+            }
+        }
+
+        resultSet[index].Duration = startTime-endTime
+        
     }
+
+    /*For Debugging ResultSet from JSON import
+    log.Printf("%v\n", len(resultSet))
+    for _, result := range resultSet {
+        log.Printf("%v\n", result.StartTime)
+        log.Printf("%v\n", result.Duration)
+        log.Printf(result.BTName)
+        log.Printf(result.TierName)
+        log.Printf(result.NodeName)
+        log.Printf(result.TraceID)
+        log.Printf(result.ParentID)
+        log.Printf(result.SpanID)
+        log.Printf("")
+        log.Printf("")
+        log.Printf("END OF RESULT")
+        log.Printf("")
+        log.Printf("")
+    }
+    */
+
+    /*Calling Span stitching for BT Snapshots function*/
 }
 
 func main() {
