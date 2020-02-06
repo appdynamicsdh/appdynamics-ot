@@ -5,6 +5,7 @@ import (
     "log"
     "net/http"
     "io/ioutil"
+    "../constants"
 )
 
 type Message []struct {
@@ -29,18 +30,6 @@ type Message []struct {
 		} `json:"endpoint"`
 	} `json:"binaryAnnotations"`
 }
-
-type extractedData []struct {
-	StartTime int64    `json:"timestamp"`
-	Duration  int64    `json:"duration"`
-	BTName    string   `json:"value"`
-	TierName  string   `json:"serviceName"`
-    NodeName  string   `json:"ipv4"`
-    TraceID   string   `json:"traceId"`
-    ParentID  string   `json:"parentId,omitempty"`
-    SpanID    string   `json:"id"`
-}
-
 
 func ingestSpan(rw http.ResponseWriter, req *http.Request) {
     
@@ -68,7 +57,7 @@ func ingestSpan(rw http.ResponseWriter, req *http.Request) {
 and related traces*/
 func extractDataFromSpan(traces *Message){
 
-    var resultSet = make(extractedData, len(*traces))
+    var resultSet = make(constants.ExtractedData, len(*traces))
     var startTime int64
     var endTime int64
     var counter int = 0

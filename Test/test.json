@@ -1,0 +1,207 @@
+[
+  {
+    "traceId": "a07b228e6d6a7279691ad1def6b7b76d",
+    "id": "bd1e24ec5736c984",
+    "name": "get",
+    "parentId": "691ad1def6b7b76d",
+    "annotations": [
+      {
+        "timestamp": 1580781221568421,
+        "value": "sr",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "timestamp": 1580781221569060,
+        "value": "handler.class_simple_name=HelloController handler=public java.lang.String com.example.demoopentracing.HelloController.hello() event=preHandle handler.method_name=hello",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "timestamp": 1580781221571108,
+        "value": "ss",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      }
+    ],
+    "binaryAnnotations": [
+      {
+        "key": "component",
+        "value": "java-web-servlet",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "component",
+        "value": "java-spring-rest-template",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "http.method",
+        "value": "GET",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "http.status_code",
+        "value": "200",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "http.url",
+        "value": "http://localhost:8080/hello",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "peer.port",
+        "value": "8080",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "span.kind",
+        "value": "server",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "span.kind",
+        "value": "client",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      }
+    ]
+  },
+  {
+    "traceId": "a07b228e6d6a7279691ad1def6b7b76d",
+    "id": "bd1e24ec5736c984",
+    "name": "",
+    "parentId": "691ad1def6b7b76d",
+    "annotations": [
+      {
+        "timestamp": 1580781221572015,
+        "value": "event=afterCompletion handler=public java.lang.String com.example.demoopentracing.HelloController.hello()",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      }
+    ],
+    "binaryAnnotations": [
+      {
+        "key": "http.status_code",
+        "value": "200",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      }
+    ]
+  },
+  {
+    "traceId": "a07b228e6d6a7279691ad1def6b7b76d",
+    "id": "691ad1def6b7b76d",
+    "name": "get",
+    "annotations": [
+      {
+        "timestamp": 1580781221562129,
+        "value": "sr",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "timestamp": 1580781221563031,
+        "value": "handler.class_simple_name=HelloController handler=public java.lang.String com.example.demoopentracing.HelloController.chaining() event=preHandle handler.method_name=chaining",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "timestamp": 1580781221572892,
+        "value": "event=afterCompletion handler=public java.lang.String com.example.demoopentracing.HelloController.chaining()",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "timestamp": 1580781221573048,
+        "value": "ss",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      }
+    ],
+    "binaryAnnotations": [
+      {
+        "key": "component",
+        "value": "java-web-servlet",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "http.method",
+        "value": "GET",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "http.status_code",
+        "value": "200",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "http.url",
+        "value": "http://localhost:8080/chaining",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
+      {
+        "key": "span.kind",
+        "value": "server",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      }
+    ]
+  }
+]
