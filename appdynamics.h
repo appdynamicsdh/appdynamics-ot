@@ -446,6 +446,44 @@ APPD_API void appd_bt_override_time_ms(appd_bt_handle bt, int64_t timeMS);
 
 APPD_API void appd_bt_override_start_time_ms(appd_bt_handle bt, int64_t timeMS);
 
+
+/**
+ * Override the time reported for an exit call.
+ *
+ * The time is specified in milliseconds. By overriding the time with a
+ * specific value, the exit call's internal timer is disabled. Only the time you
+ * specify to this function will be reported to the controller.
+ *
+ * This can be useful for reporting exit calls that are recorded in external
+ * monitoring systems and read into an SDK program.
+ *
+ * @param exitCall
+ *     The exit call to override the timing of.
+ * @param timeMS
+ *     The time the business transaction took, in milliseconds.
+ */
+APPD_API void appd_exitcall_override_time_ms(appd_exitcall_handle exitCall, int64_t timeMS);
+
+/**
+ * Override the start time reported for an exit call.
+ *
+ * The time is the number of millisecond since start of epoch
+ * (midnight, Jan 1, 1970 UTC). By overriding the start time with a
+ * specific value, the exit calls's internal start time is disabled
+ * The time specified by this function will be reported as the
+ * start time to the controller.
+ *
+ * This can be useful for reporting exit calls that are recorded in external
+ * monitoring systems and read into an SDK program.
+ *
+ * @param exitCall
+ *     The exit call to override the timing of.
+ * @param timeMS
+ *     Time in milliseconds since start of epoch (midnight, Jan 1, 1970 UTC).
+ */
+
+APPD_API void appd_exitcall_override_start_time_ms(appd_exitcall_handle exitCall, int64_t timeMS);
+
 /**
  * Store a BT handle for retrieval with appd_bt_get.
  *
