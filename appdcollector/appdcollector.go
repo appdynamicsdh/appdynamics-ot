@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 	//"math/rand"
-	appd "../appd"
+	appd "appdynamics-ot"
 )
 
 type ExtractedData struct {

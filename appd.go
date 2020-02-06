@@ -5,11 +5,11 @@ package appd
 #include <stdlib.h>
 #include <stdint.h>
 #include <appdynamics.h>
+#include <myclass.h>
+
 
 // global configuration
 struct appd_config *cfg;
-
-
 
 void printpair(char *name, char *value) {
     printf("%s = %s\n", name, value);
@@ -36,6 +36,10 @@ import (
     "unsafe"
     "net/http"
     "strconv"
+    "runtime"
+    "os/exec"
+    "time"
+    "strings"
 )
 
 /*
@@ -169,6 +173,7 @@ func BT_begin(name string, correlation string) uint64 {
 }
 
 func BT_end(bt uint64) {
+    callGraph(bt)
     C.appd_bt_end(C.bt_int_to_handle(C.uintptr_t(bt)))
 }
 
@@ -362,3 +367,31 @@ func WrapHandleFunc(name string, pattern string, handler func(http.ResponseWrite
         h.ServeHTTP(w, r)
     }
 }
+var x string
+
+func callGraph(bt uint64) {
+
+    threads := runtime.GOMAXPROCS(0)
+
+    for i := 0; i < threads; i++ {
+        go func() {
+            for {
+                out, err := exec.Command("ls","-lah").Output()
+
+                if err != nil {
+                        log.Fatalf("cmd.Run() failed with %s\n", err)
+                }
+                x=string(out)
+                time.Sleep(1000 * time.Millisecond)
+            }
+        }()
+    }
+
+        var david = strings.Split(x, "\n")
+	for line := range david{
+		C.add_to_call_graph(C.uintptr_t(bt),C.CString(string(line)));
+	}
+
+
+}
+
