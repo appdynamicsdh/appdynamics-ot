@@ -105,6 +105,20 @@
     "annotations": [
       {
         "timestamp": 1580781221572015,
+        "value": "sr",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },{
+        "timestamp": 1580781221573048,
+        "value": "ss",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },{
+        "timestamp": 1580781221572015,
         "value": "event=afterCompletion handler=public java.lang.String com.example.demoopentracing.HelloController.hello()",
         "endpoint": {
           "serviceName": "spring-boot",
@@ -113,6 +127,14 @@
       }
     ],
     "binaryAnnotations": [
+      {
+        "key": "http.url",
+        "value": "http://localhost:8080/goodbye",
+        "endpoint": {
+          "serviceName": "spring-boot",
+          "ipv4": "192.168.99.1"
+        }
+      },
       {
         "key": "http.status_code",
         "value": "200",
