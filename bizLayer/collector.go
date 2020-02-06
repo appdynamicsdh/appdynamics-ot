@@ -6,6 +6,7 @@ import (
     "net/http"
     "io/ioutil"
     "../constants"
+    appdcollector "../appdcollector"
 )
 
 type Message []struct {
@@ -32,7 +33,7 @@ type Message []struct {
 }
 
 func ingestSpan(rw http.ResponseWriter, req *http.Request) {
-    
+
     /*get JSON body from handler*/
     body, err := ioutil.ReadAll(req.Body)
     if err != nil {
@@ -71,7 +72,7 @@ func extractDataFromSpan(traces *Message){
 
         startTime = 0
         endTime = 0
-        
+
         if(trace.ParentID == ""){
             /*Set the top of the []extractedData for the Parent Information*/
             index = 0
@@ -85,11 +86,11 @@ func extractDataFromSpan(traces *Message){
                 startTime = annotation.Timestamp
                 resultSet[index].StartTime = annotation.Timestamp
                 resultSet[index].TierName = annotation.Endpoint.ServiceName
-                resultSet[index].NodeName = annotation.Endpoint.Ipv4 
+                resultSet[index].NodeName = annotation.Endpoint.Ipv4
             }
             if(annotation.Value =="sr"){
                 endTime = annotation.Timestamp
-            }  
+            }
         }
         for _, binaryAnn := range trace.BinaryAnnotations {
             if(binaryAnn.Key =="http.url"){
@@ -98,7 +99,7 @@ func extractDataFromSpan(traces *Message){
         }
 
         resultSet[index].Duration = startTime-endTime
-        
+
     }
 
     /*For Debugging ResultSet from JSON import
@@ -121,6 +122,9 @@ func extractDataFromSpan(traces *Message){
     */
 
     /*Calling Span stitching for BT Snapshots function*/
+    /*Calling Span stitching for BT Snapshots function*/
+    // Integrating with Collector
+    appdcollector.CreateBusinessTransaction(resultSet)
 }
 
 func main() {
