@@ -446,7 +446,6 @@ APPD_API void appd_bt_override_time_ms(appd_bt_handle bt, int64_t timeMS);
 
 APPD_API void appd_bt_override_start_time_ms(appd_bt_handle bt, int64_t timeMS);
 
-
 /**
  * Override the time reported for an exit call.
  *
