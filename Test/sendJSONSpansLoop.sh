@@ -6,5 +6,5 @@
 for ((i=1;i<=$2;i++))
 do   
 curl -X POST -H "Content-Type: application/json" -d @$1 "http://localhost:3030/span"
-sleep 60
+sleep 5 
 done

@@ -5,6 +5,7 @@ package appd
 #include <stdlib.h>
 #include <stdint.h>
 #include <appdynamics.h>
+#include <appdynamics_advanced.h>
 #include <myclass.h>
 
 
@@ -308,11 +309,11 @@ func Exitcall_end(exit uint64) {
 }
 
 func Exitcall_override_start_time_ms(exit uint64, start uint64) {
-	C.aappd_exitcall_override_start_time_ms(C.exit_int_to_handle(C.uintptr_t(exit)), C.long(start))
+	C.appd_exitcall_override_start_time_ms(C.exit_int_to_handle(C.uintptr_t(exit)), C.long(start))
 }
 
 func Exitcall_override_time_ms(bt uint64, timeMS uint64) {
-	C.appd_exitcall_override_time_ms(C.bt_int_to_handle(C.uintptr_t(bt)), C.long(timeMS))
+	//C.appd_exitcall_override_time_ms(C.bt_int_to_handle(C.uintptr_t(bt)), C.long(timeMS))
 }
 
 func Exitcall_set_details(exit uint64, details string) int {
