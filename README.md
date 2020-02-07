@@ -10,5 +10,5 @@ export LD_LIBRARY_PATH=$APPD_SDK_HOME/lib
 
 Copy cpp/myclass.so to /home/djhope/appdynamics-cpp-sdk/lib/libmyclass.so
 
-Copy myclass_hacked.h to /home/djhope/appdynamics-cpp-sdk/include
+Copy myclass_hacked.h to /home/djhope/appdynamics-cpp-sdk/include/myclass.h
 
